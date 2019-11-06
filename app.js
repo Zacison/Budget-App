@@ -1,4 +1,5 @@
-//Zach Dantzer
+//Zach Dantzer 
+//Added deletion on UI
 //Module, encapulates data from functions so it isnt anywhere else
 //uses IIFE, instantly initialized funtion expressions
 var budgetController = (function() {
@@ -69,6 +70,19 @@ var budgetController = (function() {
 			return newItem;
 		},
 
+		deleteItem: function(type, id) {
+			var ids, index;
+			
+			ids = data.allItems[type].map(function(current) {
+				return current.id;
+			});
+			index = ids.indexOf(id);
+
+			if (index !== -1) {
+				data.allItems[type].splice(index, 1);
+			}
+		},
+
 		calculateBudget: function () {
 
 				// calculate total income and expense
@@ -122,6 +136,7 @@ var UIController = (function () {
 		incomeLabel: '.budget__income--value',
 		expenseLabel: '.budget__expenses--value',
 		percentageLabel: '.budget__expenses--percentage',
+		container: '.container',
 
 	}
 
@@ -162,6 +177,11 @@ var UIController = (function () {
 
 			////insert html into the dom
 			 document.querySelector(element).insertAdjacentHTML('beforeend', newHTML);
+		},
+
+		deleteListItem: function(selectorID) {
+			var element = document.getElementById(selectorID);
+			element.parentNode.removeChild(element);
 		},
 
 		clearFields: function() {
@@ -215,6 +235,9 @@ var controller = (function (budgetCtrl, UICtrl) {
 				ctrlAddItem();
 			}
 		});
+
+		document.querySelector(DOM.container).addEventListener('click', ctrlDeleteItem);
+
 	};
 
 
@@ -254,6 +277,27 @@ var controller = (function (budgetCtrl, UICtrl) {
 	}
 		
 };
+
+	var ctrlDeleteItem = function(event) {
+		var splitID, type, ID;
+		var itemID = event.target.parentNode.parentNode.parentNode.parentNode.id;
+	
+		if(itemID) {
+
+			splitID = itemID.split('-');
+			type = splitID[0];
+			ID = parseInt(splitID[1]);
+
+			//1. delete item from data structure
+			budgetCtrl.deleteItem(type, ID);
+			//2. delete item from UI
+			UICtrl.deleteListItem(itemID);
+			//3. update and show the new budget
+			updateBudget();
+		};
+
+
+	};
 
 	//Initialize the application
 	return {
