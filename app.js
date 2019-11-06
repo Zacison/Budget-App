@@ -1,3 +1,4 @@
+//Zach Dantzer
 //Module, encapulates data from functions so it isnt anywhere else
 //uses IIFE, instantly initialized funtion expressions
 var budgetController = (function() {
