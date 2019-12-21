@@ -33,7 +33,15 @@ body {
 
 .top {
     height: 40vh;
-    background-image: linear-gradient(rgba(0, 0, 0, 0.35), rgba(0, 0, 0, 0.35)), url(back.png);
+  /*  background-image: linear-gradient(rgba(0, 0, 0, 0.35), rgba(0, 0, 0, 0.35)), url(back.png); 
+background-color: #fce055;
+background-image: linear-gradient(315deg, #fce055 0%, #256eff 37%, #46237a 100%); */
+
+background-color: #b1bfd8;
+background-image: linear-gradient(315deg, #b1bfd8 0%, #6782b4 74%);
+
+
+
     background-size: cover;
     background-position: center;
     position: relative;
@@ -183,13 +191,15 @@ body {
 
 .income {
     float: left;
-    width: 475px;
+    width: 50vh;
     margin-right: 50px;
+    margin-left: 50px;
 }
 
 .expenses {
     float: left;
-    width: 475px;
+    width: 50vh;
+    margin-right: 50px;
 }
 
 h2 {
